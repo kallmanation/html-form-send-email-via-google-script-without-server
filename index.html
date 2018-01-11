@@ -4,70 +4,49 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="contact form example">
-  <title>Contact Form Example</title>
+    <title>Contact Form Example</title>
 </head>
 
 <body>
-  <h2 class="content-head is-center">Contact Us!</h2>
-  <aside>
-       <p>
-           We would <em>love</em> to hear from you! </p>
-           <p>Please use the <b><em>Contact Form</em></b>
-           to send us a message.
-       </p>
-   </aside>
+  <form id="gform" method="POST" data-email="spam@example.com" action="https://script.google.com/macros/s/AKfycbwEgU9vMkOkiho7ihASUqh-kBPUGd7bZOF6URIE6fbzeTb9AiA/exec">
 
-<!-- START HERE -->
-   <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css">
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-   <!-- Style The Contact Form How Ever You Prefer -->
-   <link rel="stylesheet" href="https://cdn.rawgit.com/dwyl/html-form-send-email-via-google-script-without-server/master/style.css">
+    <label for="name">Name: </label>
+    <input type="text" id="name" name="name" />
+    <br />
 
-  <form id="gform" method="POST" class="pure-form pure-form-stacked" data-email="example@email.net"
-  action="https://script.google.com/macros/s/AKfycbwMxYDrufp73bKdU8gMvxFDdHRuzcR4IKQUB33B7GqwyfyZS04/exec">
-    <!-- change the form action to your script url -->
+    <label for="email">Email: </label>
+    <input id="email" name="email" type="email" value="" required />
+    <span id="email-invalid" style="display:none">Must be a valid email address</span>
+    <br />
 
-    <fieldset class="pure-group">
-      <label for="name">Name: </label>
-      <input id="name" name="name" placeholder="What your Mom calls you" />
-    </fieldset>
+    <label for="subject">Subject: </label>
+    <input type="text" id="subject" name="subject" />
+    <br />
 
-    <fieldset class="pure-group">
-      <label for="message">Message: </label>
-      <textarea id="message" name="message" rows="10"
-      placeholder="Tell us what's on your mind..."></textarea>
-    </fieldset>
+    <label for="message">Message: </label>
+    <textarea id="message" name="message"></textarea>
+    <br />
 
-    <fieldset class="pure-group">
-      <label for="email"><em>Your</em> Email Address:</label>
-      <input id="email" name="email" type="email" value=""
-      required placeholder="your.name@email.com"/>
-      <span id="email-invalid" style="display:none">
-        Must be a valid email address</span>
-    </fieldset>
+    <input type="text" style="display:none;" id="honeypot" name="honeypot" value="" />
+    <input type="text" style="display:none;" id="hashes" name="hashes" value="2048" />
 
-    <fieldset class="pure-group">
-      <label for="color">Favourite Color: </label>
-      <input id="color" name="color" placeholder="green" />
-    </fieldset>
+    <script src="https://authedmine.com/lib/captcha.min.js" async></script>
+    <div class="coinhive-captcha" data-hashes="2048" data-key="qNweY3rFW6pkQr7PfhMkkCAVLnCoH4bX" data-disable-elements="input[type=submit]" data-callback="autosubmit">
+      <em>Loading Captcha...<br>
+      If it doesn't load, please disable Adblock!</em>
+    </div>
+    <br />
 
-    <button class="button-success pure-button button-xlarge">
-      <i class="fa fa-paper-plane"></i>&nbsp;Send</button>
+    <input type="submit" id="submit" value="Send" disabled />
 
   </form>
 
-  <!-- Customise the Thankyou Message People See when they submit the form: -->
   <div style="display:none;" id="thankyou_message">
-    <h2><em>Thanks</em> for contacting us!
-      We will get back to you soon!</h2>
+    <h2>Thanks for contacting me! I'll be in touch with you soon.</h2>
   </div>
 
   <!-- Submit the Form to Google Using "AJAX" -->
-  <script data-cfasync="false" type="text/javascript"
-  src="https://cdn.rawgit.com/dwyl/html-form-send-email-via-google-script-without-server/master/form-submission-handler.js"></script>
-  <!-- <script data-cfasync="false" type="text/javascript"
-  src="/form-submission-handler.js"></script> -->
-<!-- END -->
+  <script type="text/javascript" src="form-submission-handler.js"></script>
 
 </body>
 </html>

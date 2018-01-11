@@ -6,10 +6,11 @@ function validEmail(email) { // see:
 
 function validateHuman(honeypot) {
   if (honeypot) {  //if hidden form filled up
-    console.log("Robot Detected!");
+    // console.log("Robot Detected!");
     return true;
   } else {
-    console.log("Welcome Human!");
+    // console.log("Welcome Human!");
+    return false;
   }
 }
 
@@ -33,12 +34,12 @@ function getFormData() {
     var str = ""; // declare empty string outside of loop to allow
                   // it to be appended to for each item in the loop
     if(elements[k].type === "checkbox"){ // special case for Edge's html collection
-      str = str + elements[k].checked + ", "; // take the string and append 
-                                              // the current checked value to 
-                                              // the end of it, along with 
+      str = str + elements[k].checked + ", "; // take the string and append
+                                              // the current checked value to
+                                              // the end of it, along with
                                               // a comma and a space
-      data[k] = str.slice(0, -2); // remove the last comma and space 
-                                  // from the  string to make the output 
+      data[k] = str.slice(0, -2); // remove the last comma and space
+                                  // from the  string to make the output
                                   // prettier in the spreadsheet
     }else if(elements[k].length){
       for(var i = 0; i < elements[k].length; i++){
@@ -63,11 +64,9 @@ function handleFormSubmit(event) {  // handles form submit withtout any jquery
   event.preventDefault();           // we are submitting via xhr below
   var data = getFormData();         // get the values submitted in the form
 
-  /* OPTION: Remove this comment to enable SPAM prevention, see README.md
   if (validateHuman(data.honeypot)) {  //if form is filled, form will not be submitted
     return false;
   }
-  */
 
   if( !validEmail(data.email) ) {   // if email is not valid show error
     document.getElementById('email-invalid').style.display = 'block';
@@ -92,6 +91,13 @@ function handleFormSubmit(event) {  // handles form submit withtout any jquery
     xhr.send(encoded);
   }
 }
+
+function autosubmit() {
+  var button = document.getElementById('submit');
+  button.disabled = false;
+  button.click();
+}
+
 function loaded() {
   console.log('contact form submission handler loaded successfully');
   // bind to the submit event of our form
